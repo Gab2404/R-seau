@@ -101,3 +101,59 @@ _PS C:\Windows\system32> nslookup roblox.com_
     Réponse ne faisant pas autorité :
     Nom :    roblox.com
     Address:  128.116.44.4
+
+# IV.Network scanning et adresses IP
+
+> **🌞 Effectue un scan du réseau auquel tu es connecté**
+
+_PS C:\Users\gabri> nmap -sn -PR 192.168.56.1_
+
+    Starting Nmap 7.95 ( https://nmap.org ) at 2024-10-06 18:54 Romance Daylight Time
+    Nmap scan report for 192.168.56.1
+    Host is up.
+    Nmap done: 1 IP address (1 host up) scanned in 0.34 seconds
+
+> **🌞 Changer d'adresse IP**
+
+_PS C:\Users\gabri> Get-NetAdapter_
+
+    Name                      InterfaceDescription                    ifIndex Status       MacAddress             LinkSpeed
+    ----                      --------------------                    ------- ------       ----------             ---------
+    OpenVPN Data Channel O... OpenVPN Data Channel Offload                 21 Disconnected                           1 Gbps
+    Wi-Fi                     Intel(R) Wi-Fi 6E AX211 160MHz               19 Up           E8-C8-29-CB-A5-8E     144.4 Mbps
+    Connexion réseau Bluet... Bluetooth Device (Personal Area Netw...      11 Disconnected E8-C8-29-CB-A5-92         3 Mbps
+    Connexion au réseau l...2 TAP-NordVPN Windows Adapter V9                8 Disconnected 00-FF-4D-C2-35-31         1 Gbps
+    Ethernet 2                VirtualBox Host-Only Ethernet Adapter         6 Up           0A-00-27-00-00-06         1 Gbps
+
+_PS C:\Windows\system32> New-NetIPAddress -InterfaceIndex 19 -IPAddress 10.100.0.49 -PrefixLength 24 -DefaultGateway 10.100.0.254_
+
+
+    IPAddress         : 10.100.0.49
+    InterfaceIndex    : 19
+    InterfaceAlias    : Wi-Fi
+    AddressFamily     : IPv4
+    Type              : Unicast
+    PrefixLength      : 24
+    PrefixOrigin      : Manual
+    SuffixOrigin      : Manual
+    AddressState      : Tentative
+    ValidLifetime     :
+    PreferredLifetime :
+    SkipAsSource      : False
+    PolicyStore       : ActiveStore
+
+    IPAddress         : 10.100.0.49
+    InterfaceIndex    : 19
+    InterfaceAlias    : Wi-Fi
+    AddressFamily     : IPv4
+    Type              : Unicast
+    PrefixLength      : 24
+    PrefixOrigin      : Manual
+    SuffixOrigin      : Manual
+    AddressState      : Invalid
+    ValidLifetime     :
+    PreferredLifetime :
+    SkipAsSource      : False
+    PolicyStore       : PersistentStore
+
+_PS C:\Windows\system32> Set-DnsClientServerAddress -InterfaceIndex 19 -ServerAddresses 10.100.0.1_
