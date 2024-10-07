@@ -57,7 +57,7 @@
 
 > **🌞 Utilisez une commande qui permet de voir la connexion en cours**
 
-**_gabriel@zengab:~$ ss dst 192.168.56.101__**
+**_gabriel@zengab:~$ ss dst 192.168.56.101_**
 
     Netid         State         Recv-Q         Send-Q                 Local Address:Port                    Peer Address:Port        Process         
     tcp           ESTAB         0              0                       192.168.56.1:42160                 192.168.56.101:809                         
@@ -68,4 +68,6 @@
 # III. Analyse de vos applications usuelles
 
 ### 2. Autres services
+
+> **🌞 Pour les 5 applications**
 
