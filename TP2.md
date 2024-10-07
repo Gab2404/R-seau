@@ -67,7 +67,15 @@
 
 # III. Analyse de vos applications usuelles
 
-### 2. Autres services
+## 2. Autres services
 
 > **🌞 Pour les 5 applications**
 
+### _Discord :_ 
+
+_**gabriel@zengab:~$ ss -tnp | grep -i "discord"**_
+
+    ESTAB 0      0       192.168.0.33:34594 162.159.133.234:443  users:(("Discord",pid=7200,fd=30))
+    Port : "433' et "34594"
+
+### _Firefox :_
