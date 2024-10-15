@@ -211,3 +211,78 @@ subnet 10.5.1.0 netmask 255.255.255.0 {
     # specify gateway
     option routers 10.5.1.254;
 }
+
+______
+
+> **☀️ Créez une nouvelle machine client client3.tp5.b1**
+
+_gab@gab-VirtualBox:~$ ip a_
+
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:1b:76:ee brd ff:ff:ff:ff:ff:ff
+    inet 10.5.1.138/24 brd 10.5.1.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 43112sec preferred_lft 43112sec
+    inet6 fe80::a00:27ff:fe1b:76ee/64 scope link 
+       valid_lft forever preferred_lft forever
+
+
+_gab@gab-VirtualBox:~$ ping google.com_
+
+PING google.com (142.250.74.238) 56(84) bytes of data.
+64 bytes from par10s40-in-f14.1e100.net (142.250.74.238): icmp_seq=1 ttl=61 time=61.6 ms
+64 bytes from par10s40-in-f14.1e100.net (142.250.74.238): icmp_seq=3 ttl=61 time=504 ms
+^C
+--- google.com ping statistics ---
+4 packets transmitted, 2 received, 50% packet loss, time 3075ms
+rtt min/avg/max/mdev = 61.633/282.838/504.043/221.205 ms
+
+______
+
+> **☀️ Consultez le bail DHCP qui a été créé pour notre client**
+
+__[gab@routeur dhcpd]$ cat dhcpd.leases__
+
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.4.2b1
+
+# authoring-byte-order entry is generated, DO NOT DELETE
+authoring-byte-order little-endian;
+
+lease 10.5.1.137 {
+  starts 2 2024/10/15 09:55:53;
+  ends 2 2024/10/15 21:55:53;
+  tstp 2 2024/10/15 21:55:53;
+  cltt 2 2024/10/15 09:55:53;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 08:00:27:93:62:50;
+  uid "\377\3424?>\000\002\000\000\253\021^\332\264g}F\\F";
+  client-hostname "gab-VirtualBox";
+}
+server-duid "\000\001\000\001.\240\370\214\010\000'\014\205?";
+
+lease 10.5.1.138 {
+  starts 2 2024/10/15 20:16:16;
+  ends 3 2024/10/16 08:16:16;
+  cltt 2 2024/10/15 20:16:16;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 08:00:27:1b:76:ee;
+  uid "\001\010\000'\033v\356";
+  client-hostname "gab-VirtualBox";
+}
+______
+
+> **☀️ Confirmez qu'il s'agit bien de la bonne adresse MAC**
+
+
+__gab@gab-VirtualBox:~$ ip a_
+
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:1b:76:ee brd ff:ff:ff:ff:ff:ff
+    inet 10.5.1.138/24 brd 10.5.1.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 42764sec preferred_lft 42764sec
+    inet6 fe80::a00:27ff:fe1b:76ee/64 scope link 
+       valid_lft forever preferred_lft forever
