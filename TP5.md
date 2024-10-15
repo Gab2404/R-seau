@@ -191,5 +191,23 @@ ESTAB 0      0         10.5.1.254:22       10.5.1.1:56624 users:(("sshd",pid=136
 ___
 
 ## IV. Serveur DHCP
-### 1. Le but
+### 3. Rendu attendu
 
+_sudo dnf -y install dhcp-server_
+
+_sudo nano /etc/dhcp/dhcpd.conf_
+
+# DHCP Server Configuration file.
+#   see /usr/share/doc/dhcp-server/dhcpd.conf.example
+#   see dhcpd.conf(5) man page
+#
+option domain-name-servers     1.1.1.1;
+
+subnet 10.5.1.0 netmask 255.255.255.0 {
+    # specify the range of lease IP address
+    range dynamic-bootp 10.5.1.137 10.5.1.237;
+    # specify broadcast address
+    option broadcast-address 10.0.0.255;
+    # specify gateway
+    option routers 10.5.1.254;
+}
